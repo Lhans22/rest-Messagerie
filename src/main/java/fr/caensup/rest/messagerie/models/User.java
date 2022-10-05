@@ -1,5 +1,6 @@
 package fr.caensup.rest.messagerie.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -46,10 +49,12 @@ public class User {
 	@Column(nullable = true)
 	private boolean suspended;
 
-	@ManyToOne(optional = false)
+	@JsonIgnore
+	@ManyToOne
 	private Organization organization;
 
+	@JsonIgnore
 	@ManyToMany(mappedBy = "users")
-	private List<Group> groupes;
+	private List<Group> groupes = new ArrayList<>();
 
 }
